@@ -1,0 +1,23 @@
+<!doctype HTML>
+<html>
+<head>
+<title>FA</title>
+<script src="fa.js"></script>
+<script language="javascript">
+    window.onload = function () {
+        /* strings which end in bb */
+        d = new DFA(['a','b']);
+        d.add_state('q1','q1',false,[0,0],'');
+        d.add_state('q2','q2',true,[0,0],'');
+        d.add_transition('s','s','a');
+        d.add_transition('s','q1','b');
+        d.add_transition('q1','s','a');
+        d.add_transition('q1','q2','b');
+        d.add_transition('q2','s','a');
+        d.add_transition('q2','q2','b');
+    };
+</script>
+</head>
+<body>
+</body>
+</html>
