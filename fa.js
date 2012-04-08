@@ -31,7 +31,7 @@ function DFA(alpha) {
     this.alpha = hashify(alpha);
     this.states = new Object;
     this.start_state = 's';
-    this.states['s'] = new DState('s',false,[50,50]);
+    this.states['s'] = new DState('s',false,[100,100]);
     this.states['s'].description = 'This is the start state';
     this.add_transition = function(from, to, symbol) {
         if (!this.alpha[symbol])
@@ -55,7 +55,7 @@ function DFA(alpha) {
         this.states[id] = new DState(label,accept,position);
         this.states[id].description = description;
     }
-    this.delay = 25;        /* default state change delay */
+    this.delay = 500;        /* default state change delay */
     this.c_state = this.start_state;
     this.complete = function (accept, f_state) {
         console.log("string accepted: " + accept + "\nfinal state: " + f_state);
@@ -73,6 +73,8 @@ function DFA(alpha) {
             self.c_state = self.start_state;
             self.input = input;
             self.running = true;
+            setTimeout(function () {self.process("",self);},self.delay);
+            return;
         }
         if (self.input.length > 0) {
             if (self.alpha[self.input[0]]) {
