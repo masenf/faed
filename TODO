@@ -1,0 +1,28 @@
+Faed TODO:
+
+4/12/12:
+ * Find consistent naming convention
+ fa.js:
+  * Delete states and transitions
+  * Verify completeness/validity
+  * Execute NFA
+  * Minimize NFA/DFA
+  * NFA -> DFA
+  * Future: regex -> NFA
+  * Future: Layout Engine
+ faed.js:
+  * Set name/description
+  * 
+ faed.html:
+  * Bootstrap
+  * detail "inspector" sidebar:
+    * Transition: remove, flip, description, symbol, 
+    * State: label, description, transition table, accept?, remove
+    * No selection: alphabet, name, description, author, NFA/DFA switch, start state (Of the machine)
+  * Toolbar: new (new from regex), save, select, add state, add transition, (textbox) execute
+  * NFuture: local storage/db saving
+  * Better looking arrows
+  * Better Stacking of labels
+  * NFuture: zoom/pan canvas
+
+
