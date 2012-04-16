@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Faed - Finite Automata Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Masen Furer">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/faed.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-bottom: 40px;
+        background-color: #ddd;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">Faed - Finite Automata Editor v0.1</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul id="machine_panel" class="nav nav-list">
+              <li class="nav-header">Finite Automata</li>
+              <li><form>
+                <div class="control-group">
+                    <label class="control-label" for="machine_name">Name</label>
+                    <input type="text" class="span2" id="machine_name">
+                    <label class="control-label" for="machine_alpha">Alphabet</label>
+                    <input type="text" class="span2" rel="tooltip" title="Comma-separated" id="machine_alpha">
+                    <label class="control-label" for="machine_author">Author</label>
+                    <input type="text" class="span2" id="machine_author">
+                    <label class="control-label" for="machine_desc">Description</label>
+                    <textarea class="span2" id="machine_desc"></textarea>
+                </div></form></li>
+              <li><div class="btn-group" data-toggle="buttons-radio">
+                <button class="btn btn-primary active" id="btn_DFA">DFA</button>
+                <button class="btn btn-primary " id="btn_NFA">NFA</button>
+              </div></li>
+            </ul>
+            <ul id="state_panel" class="nav nav-list">
+              <li class="nav-header">State</li>
+              <li><form>
+                <div class="control-group">
+                    <label class="control-label" for="state_label">Label</label>
+                    <input type="text" class="span2" id="state_label">
+                    <label class="control-label" for="state_desc">Description</label>
+                    <textarea class="span2" id="state_desc"></textarea>
+                </div></form></li>
+              <li><button class="btn btn-success" id="btn_accept" data-toggle="button"><i class="icon-ok"></i> Accept</button></li>
+              <li><button class="btn btn-danger" id="btn_removestate"><i class="icon-remove"></i> Remove</button></li>
+            </ul>
+            <ul id="transition_panel" class="nav nav-list">
+              <li class="nav-header">Transition</li>
+              <li><form>
+                <div class="control-group">
+                    <label class="control-label" for="trans_symbol">Symbol</label>
+                    <select class="span2" id="trans_symbol">
+                    </select>
+                    <label class="control-label" for="trans_label">Label</label>
+                    <input type="text" class="span2" id="trans_label">
+                    <label class="control-label" for="trans_desc">Description</label>
+                    <textarea class="span2" id="trans_desc"></textarea>
+                </div></form></li>
+              <li><button class="btn btn-primary" id="btn_flipedge"><i class="icon-random"></i> Flip</button></li>
+              <li><button class="btn btn-danger" id="btn_removetransition"><i class="icon-remove"></i> Remove</button></li>
+            </ul>
+            <textarea id="exp"></textarea><input type=button value="export" id="export_btn"/><input type=button value="import" id="import_btn"/>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button class="btn" id="btn_new"><i class="icon-file"></i> New</button>
+                    <button class="btn" id="btn_save"><i class="icon-download-alt"></i> Save</button>
+                </div>
+                <div class="btn-group" id="toolbar_mode" data-toggle="buttons-radio">
+                    <button class="btn" id="btn_select"><i class="icon-check"></i> Select</button>
+                    <button class="btn" id="btn_drag"><i class="icon-move"></i></button>
+                    <button class="btn" id="btn_addstate"><i class="icon-plus"></i> State</button>
+                    <button class="btn" id="btn_addtransition"><i class="icon-plus"></i> Transition</button>
+                </div>
+                <input style="margin-top: -22px" type=text class="input-small search-query" id="instr"><button style="margin-top: -22px" class="btn" id="process_btn"><i class="icon-cog"></i>Execute</button>
+            </div>
+            <div id="canvasc" class="white_rounded">
+            </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Masen Furer 2012</p>
+      </footer>
+
+    </div><!--/.container-->
+
+    <!-- javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/gee.min.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/fa.js"></script>
+    <script src="js/faed.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,6 @@
+.white_rounded {
+   background-color: #fff; 
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    padding: 10px;
+}
